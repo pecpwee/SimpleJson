@@ -3,13 +3,14 @@ package com.pecpwee.simplejson.model;
 import android.os.SystemClock;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by pw on 2017/7/31.
  */
 
-public class ScanPojo {
+public class ScanPojo extends ParentPojo {
     private transient static final int SIZE = 5;
     private transient int transientVar;
     public Object nullobj = null;
@@ -22,18 +23,19 @@ public class ScanPojo {
 
     private String collectver;
     private List<WifiPojo> listpojo = new ArrayList<>();
-    //    public LinkedList<WifiPojo> linklistpojo = new LinkedList<>();
-//    public WifiPojo[] objArray = new WifiPojo[SIZE];
+    public LinkedList<WifiPojo> linklistpojo = new LinkedList<>();
+    public WifiPojo[] objArray = new WifiPojo[SIZE];
     private int[] intArray = new int[SIZE];
 
-    public ScanPojo() {
+    public ScanPojo(int type) {
+        super(type);
     }
 
     public void initData() {
         for (int i = 0; i < SIZE; i++) {
-            listpojo.add(new WifiPojo(SystemClock.elapsedRealtimeNanos(), "list" + i));
+            listpojo.add(new WifiPojo(23, SystemClock.elapsedRealtimeNanos(), "list" + i));
             intArray[i] = i;
-//            linklistpojo.add(new WifiPojo(SystemClock.elapsedRealtimeNanos(), "linked" + i));
+            linklistpojo.add(new WifiPojo(22, SystemClock.elapsedRealtimeNanos(), "linked" + i));
         }
 
         transientVar = 123;

@@ -138,7 +138,26 @@ class WriteOperator {
 
     private void parseObj(Object object, StringBuilder sb) {
         sb.append("{");
-        Field[] fields = object.getClass().getDeclaredFields();
+
+        Class currentLevelClass = object.getClass();
+        while (true) {
+            parseObjField(currentLevelClass, object, sb);
+            currentLevelClass = currentLevelClass.getSuperclass();
+            if (currentLevelClass == null) {
+                break;
+            }
+        }
+
+
+        if (sb.charAt(sb.length() - 1) == ',') {
+            sb.setLength(sb.length() - 1);
+        }
+        sb.append("}");
+    }
+
+    private void parseObjField(Class currentLevelClazz, Object object, StringBuilder sb) {
+        Field[] fields = currentLevelClazz.getDeclaredFields();
+
         for (Field field : fields) {
             field.setAccessible(true);
             if (shouldSkipField(object, field)) {
@@ -151,10 +170,6 @@ class WriteOperator {
             parseFieldValue(field, object, sb);
             sb.append(",");
         }
-        if (sb.charAt(sb.length() - 1) == ',') {
-            sb.setLength(sb.length() - 1);
-        }
-        sb.append("}");
     }
 
     private boolean shouldSkipField(Object object, Field field) {

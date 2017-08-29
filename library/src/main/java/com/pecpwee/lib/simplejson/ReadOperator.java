@@ -58,10 +58,8 @@ public class ReadOperator<T> {
                 break;
             }
 
-            try {
-                memberField = instanceObj.getClass().getDeclaredField(memberName);
-            } catch (NoSuchFieldException e) {
-            }
+
+            memberField = findFieldInWholeLevel(instanceObj, memberName);
             if (memberField != null) {
                 memberField.setAccessible(true);
                 Object fieldValueObj = dispatchParse(memberField.getType(), memberField, null);
@@ -87,6 +85,24 @@ public class ReadOperator<T> {
         return null;
     }
 
+    private Field findFieldInWholeLevel(Object object, String fieldName) {
+        Class currentLevelClass = object.getClass();
+        Field resultField = null;
+        while (true) {
+            try {
+                resultField = currentLevelClass.getDeclaredField(fieldName);
+            } catch (NoSuchFieldException e) {
+            }
+            if (resultField != null) {
+                return resultField;
+            }
+            currentLevelClass = currentLevelClass.getSuperclass();
+            if (currentLevelClass == null) {
+                return null;
+            }
+        }
+
+    }
 
     /**
      * @param clazz
