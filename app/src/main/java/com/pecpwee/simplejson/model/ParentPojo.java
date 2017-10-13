@@ -10,7 +10,7 @@ public class ParentPojo {
 
     public ParentPojo(int type) {
         this.type = type;
-        welcomeword = "hello world";
+        welcomeword = "hello /\\/&<<>>world/";
 
     }
 }

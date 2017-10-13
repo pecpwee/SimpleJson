@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 public class ScanPojo extends ParentPojo {
-    private transient static final int SIZE = 5;
+    private transient static final int SIZE = 2;
     private transient int transientVar;
     public Object nullobj = null;
 //    public byte wifiage;
@@ -24,6 +24,7 @@ public class ScanPojo extends ParentPojo {
     private String collectver;
     private List<WifiPojo> listpojo = new ArrayList<>();
     public LinkedList<WifiPojo> linklistpojo = new LinkedList<>();
+    public ArrayList<WifiPojo> arrayListpojo = new ArrayList<>();
     public WifiPojo[] objArray = new WifiPojo[SIZE];
     private int[] intArray = new int[SIZE];
 
@@ -36,6 +37,7 @@ public class ScanPojo extends ParentPojo {
             listpojo.add(new WifiPojo(23, SystemClock.elapsedRealtimeNanos(), "list" + i));
             intArray[i] = i;
             linklistpojo.add(new WifiPojo(22, SystemClock.elapsedRealtimeNanos(), "linked" + i));
+            arrayListpojo.add(new WifiPojo(11, SystemClock.elapsedRealtime(), "array" + i));
         }
 
         transientVar = 123;
