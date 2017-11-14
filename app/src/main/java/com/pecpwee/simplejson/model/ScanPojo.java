@@ -47,6 +47,6 @@ public class ScanPojo extends ParentPojo {
 //        hasgps = false;
 //        newdis = -432.34e-43f;
 //        dis = 123.4E5d;
-        collectver = "uid def10\t\u0012\"";
+        collectver = "uid def10\t\u0012\" ”=";
     }
 }

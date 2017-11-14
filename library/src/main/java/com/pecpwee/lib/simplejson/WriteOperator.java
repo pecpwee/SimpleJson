@@ -49,7 +49,7 @@ class WriteOperator {
         sb.append("\"");
     }
 
-    //method from repo:com.googlecode.json-simple org.json.simple.JSONValue.escape()
+    // reference:JsonWriter in Gson Project
     private void appendEscapeString(String s, StringBuilder sb) {
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
@@ -76,11 +76,18 @@ class WriteOperator {
                     sb.append("\\t");
                     break;
                 default:
-                    //Reference: http://www.unicode.org/versions/Unicode5.1.0/
-                    //it's unvisible char
-                    if ((ch >= '\u0000' && ch <= '\u001F') || (ch >= '\u007F' && ch <= '\u009F') || (ch >= '\u2000' && ch <= '\u20FF')) {
+                    //invisible char
+                    if ((ch >= '\u0000' && ch <= '\u001F')
+                            || ch == '\u2028'
+                            || ch == '\u2029'
+                            ) {
                         appendHexUnicode(ch, sb);
-                    } else if ((ch == '&' || ch == '<' || ch == '>' || ch == '\\' || ch == '\'')) {//html escape char.
+                    } else if (ch == '<'    //html escape char.
+                            || ch == '>'
+                            || ch == '&'
+                            || ch == '='
+                            || ch == '\''
+                            ) {
                         appendHexUnicode(ch, sb);
                     } else {
                         sb.append(ch);
